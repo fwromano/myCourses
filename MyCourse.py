@@ -4,8 +4,8 @@ import pickle as p
 
 class MyCourses(MyCourseParent):
 
-    def __init__(self, name, obj_type, sub_type):
-        MyCourseParent.__init__(self, name, obj_type, sub_type)
+    def __init__(self, name):
+        MyCourseParent.__init__(self, name, self.__class__.__name__)
         self.name = name
         self.courses = []
         self.save()

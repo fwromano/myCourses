@@ -1,10 +1,15 @@
 class MyCourseParent:
+    relationships = {
+        "MyCourse": "Course",
+        "Course": "Category",
+        "Category": "Item"
+    }
 
-    def __init__(self, name, obj_type, sub_type):
+    def __init__(self, name, obj_type):
         self.name = name
         self.obj_type = obj_type
         self.sub_items = []
-        self.sub_type = sub_type
+        self.sub_type = MyCourseParent.relationships[obj_type]
 
     def info(self):
         for key in self.__dict__.keys():
@@ -31,7 +36,7 @@ class MyCourseParent:
 
     def add_items(self):
         if len(self.sub_items) == 0:
-            print(f"No {self.sub_type} defined. Please specify one.\n")
+            print(f"No {self.sub_type}s defined. Please specify one.\n")
             func = self.sub_type
             new_item = func(input(f"{self.sub_type}:"))
             self.sub_items.append(new_item)
