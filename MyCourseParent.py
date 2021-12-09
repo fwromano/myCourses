@@ -1,15 +1,20 @@
+# import MyCourse, Course, Category, Assignment
+
 class MyCourseParent:
     relationships = {
         "MyCourse": "Course",
         "Course": "Category",
-        "Category": "Item"
+        "Category": "Assignment",
+        "Assignment": "None"
     }
+    obj_type = "MyCourseParent"
+    sub_type = "MyCourse"
 
-    def __init__(self, name, obj_type):
+    def __init__(self, name, self_obj_type):
         self.name = name
-        self.obj_type = obj_type
-        self.sub_items = []
-        self.sub_type = MyCourseParent.relationships[obj_type]
+        # self.obj_type = self_obj_type
+        # self.sub_items = []
+        # sub_type = MyCourseParent.relationships[self_obj_type]
 
     def info(self):
         for key in self.__dict__.keys():
@@ -35,19 +40,21 @@ class MyCourseParent:
         self.prompt()
 
     def add_items(self):
-        if len(self.sub_items) == 0:
-            print(f"No {self.sub_type}s defined. Please specify one.\n")
-            func = self.sub_type
-            new_item = func(input(f"{self.sub_type}:"))
-            self.sub_items.append(new_item)
-        else:
-            if yes(f"Add new {self.sub_type}?"):
-                func = self.sub_type
-                new_item = func(input(f"{self.sub_type}:"))
-                self.sub_items.append(new_item)
-                # self.sub_items.append(getattr(self, self.sub_type)(input(f"{self.sub_type}:")))
-        if self.sub_type.subtype is not None and yes(f"Add new {self.sub_type.subtype}?"):
-            select(self.sub_type, self.sub_items, "add_items")
+        pass  # must be overriden
+
+    #     if len(self.sub_items) == 0:
+    #         print(f"No {self.sub_type}s defined. Please specify one.\n")
+    #         func = self.sub_type
+    #         new_item = func(input(f"{self.sub_type}:"))
+    #         self.sub_items.append(new_item)
+    #     else:
+    #         if yes(f"Add new {self.sub_type}?"):
+    #             func = self.sub_type
+    #             new_item = func(input(f"{self.sub_type}:"))
+    #             self.sub_items.append(new_item)
+    #             # self.sub_items.append(getattr(self, self.sub_type)(input(f"{self.sub_type}:")))
+    #     if self.sub_type.subtype is not None and yes(f"Add new {self.sub_type.subtype}?"):
+    #         select(self.sub_type, self.sub_items, "add_items")
 
     def update(self):
         self.info()
